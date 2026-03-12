@@ -29,6 +29,8 @@ def registrar_clima():
             umidade = dados_brutos['main']['humidity']
             descricao = dados_brutos['weather'][0]['description']
 
+            print(f'Neste momento, em {CIDADE}, faz {temperatura}°C, com {umidade}% de umidade e tempo {descricao}.')
+
             clima = sqlite3.connect('clima.db')
             cursor = clima.cursor()
 
@@ -55,13 +57,13 @@ def registrar_clima():
             clima.commit()
             clima.close()
             
-            print(f'O registro climático de {CIDADE} foi criado com sucesso!')
+            print(f'\nO registro climático de {CIDADE} foi criado com sucesso!')
 
         else:
-            print('Erro: não foi possível obter os dados. Verifique a chave da API')
+            print('\nErro: não foi possível obter os dados. Verifique a chave da API')
 
     except ConnectionError:
-        print('Erro de conexão: Verifique sua internet ou a URL.')
+        print('\nErro de conexão: Verifique sua internet ou a URL.')
     
 def ler_historico():
     clima = sqlite3.connect('clima.db')
@@ -72,8 +74,9 @@ def ler_historico():
 
     lista_resultados = cursor.fetchall()
 
-    for linha in lista_resultados:
-        print(linha)
+    print()
+    for registro in lista_resultados:
+        print(f'{registro[1]} | {registro[2]}°C | {registro[3]}% umidade | {registro[4]}')
     
     clima.close()
 
