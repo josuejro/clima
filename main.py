@@ -1,7 +1,11 @@
 import sqlite3
 import requests
+from dotenv import load_dotenv
+import os
 
-CHAVE_API = 'a7e25bc4dc88ccf5508d9026485bf539'
+load_dotenv()
+
+CHAVE_API = os.getenv('CHAVE_API')
 CIDADE = 'Imperatriz,BR'
 URL_BASE = 'https://api.openweathermap.org/data/2.5/weather'
 
